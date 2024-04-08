@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NumBtn } from "./NumBtn";
 import './styles.css';
 import { useStore } from './Store'

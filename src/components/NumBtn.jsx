@@ -4,7 +4,7 @@ import { useStore } from './Store'
 
 export const NumBtn = ({ text, color, largeWidth, type, onClick }) => {
 
-  const updateCurrent = useStore((state) => state.updateCurrent)
+  const { updateCurrent } = useStore()
 
   const buttonColor = {
     backgroundColor: color ? `var(--${color})` : 'var(--btn-dark)',
