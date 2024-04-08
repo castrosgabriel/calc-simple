@@ -13,7 +13,7 @@ const Calc = () => {
   const invertCurrent = useStore(state => state.invertCurrent)
   const createOperation = useStore(state => state.createOperation)
   const clearAll = useStore(state => state.clearAll)
-  const equal = useStore(state => state.equal)
+  const getResult = useStore(state => state.getResult)
   const percentage = useStore(state => state.percentage)
   const setCurrent = useStore(state => state.setCurrent)
   const newResult = useStore(state => state.newResult)
@@ -21,7 +21,7 @@ const Calc = () => {
 
   const handleOperation = (operation) => {
     if (storedAmount) {
-      equal()
+      getResult()
       createOperation(operation)
     } else {
       createOperation(operation)
@@ -54,7 +54,7 @@ const Calc = () => {
         createOperation('÷')
       }
       else if (e.key === 'Enter') {
-        equal()
+        getResult()
       }
       else if (e.key === 'Escape') {
         clearAll()
@@ -72,14 +72,13 @@ const Calc = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyPress)
     }
-  }, [updateCurrent, createOperation, clearAll, equal, setCurrent, current]);
+  }, [updateCurrent, createOperation, clearAll, getResult, setCurrent, current]);
 
   //max limit management
   useEffect(() => {
     if (current.length > 17) {
       setError(true)
       setCurrent('Max limit')
-
       setTimeout(() => {
         setError(false)
         setCurrent(0)
@@ -133,7 +132,7 @@ const Calc = () => {
             <NumBtn color='primary' onClick={() => handleOperation('x')} text="x" />
             <NumBtn color='primary' onClick={() => handleOperation('-')} text="-" />
             <NumBtn color='primary' onClick={() => handleOperation('+')} text="+" />
-            <NumBtn color='primary' onClick={() => equal()} text="=" />
+            <NumBtn color='primary' onClick={() => getResult()} text="=" />
           </div>
         </div>
       </div>

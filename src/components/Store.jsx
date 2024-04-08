@@ -6,8 +6,7 @@ const useStore = create(set => ({
     currentOperation: '',
     newResult: false,
     error: false,
-    setError: (value) => set({ error: value }),
-    setStoredAmount: (value) => set({ storedAmount: value, newResult: false }),
+
     setCurrent: (value) => set({ current: value, storedAmount: 0, newResult: false }),
     updateCurrent: (value) => set(state => {
         if (!state.error) {
@@ -21,6 +20,13 @@ const useStore = create(set => ({
         }
     }),
     invertCurrent: () => set(state => ({ current: state.current * -1, newResult: false })),
+
+    setStoredAmount: (value) => set({ storedAmount: value, newResult: false }),
+    setError: (value) => set({ error: value }),
+    clearAll: () => set({ current: 0, storedAmount: 0, currentOperation: '' }),
+    createOperation: (operation) => set(state => ({
+        currentOperation: operation, storedAmount: state.current, current: 0, newResult: false
+    })),
     percentage: () => set(state => {
         if (state.storedAmount === 0) {
             return ({ current: state.current / 100 })
@@ -29,10 +35,7 @@ const useStore = create(set => ({
             return ({ current: state.storedAmount * (state.current / 100) })
         }
     }),
-    createOperation: (operation) => set(state => ({
-        currentOperation: operation, storedAmount: state.current, current: 0, newResult: false
-    })),
-    equal: () => set(state => {
+    getResult: () => set(state => {
         if (state.currentOperation === '+') {
             return { current: Number(state.current) + Number(state.storedAmount), currentOperation: '', storedAmount: 0, newResult: true }
         }
@@ -49,7 +52,6 @@ const useStore = create(set => ({
             return { current: state.current, currentOperation: '', storedAmount: 0 }
         }
     }),
-    clearAll: () => set({ current: 0, storedAmount: 0, currentOperation: '' }),
 }))
 
 export { useStore }
