@@ -6,18 +6,20 @@ import { useStore } from './Store'
 const Calc = () => {
 
   //state management
-  const updateCurrent = useStore(state => state.updateCurrent)
-  const current = useStore(state => state.current)
-  const currentOperation = useStore(state => state.currentOperation)
-  const storedAmount = useStore(state => state.storedAmount)
-  const invertCurrent = useStore(state => state.invertCurrent)
-  const createOperation = useStore(state => state.createOperation)
-  const clearAll = useStore(state => state.clearAll)
-  const getResult = useStore(state => state.getResult)
-  const percentage = useStore(state => state.percentage)
-  const setCurrent = useStore(state => state.setCurrent)
-  const newResult = useStore(state => state.newResult)
-  const setError = useStore(state => state.setError)
+  const {
+    updateCurrent,
+    current,
+    currentOperation,
+    storedAmount,
+    invertCurrent,
+    createOperation,
+    clearAll,
+    getResult,
+    percentage,
+    setCurrent,
+    newResult,
+    setError
+  } = useStore();
 
   const handleOperation = (operation) => {
     if (storedAmount) {
@@ -76,7 +78,7 @@ const Calc = () => {
 
   //max limit management
   useEffect(() => {
-    if (current.length > 17) {
+    if (current.length > 16) {
       setError(true)
       setCurrent('Max limit')
       setTimeout(() => {
@@ -107,7 +109,7 @@ const Calc = () => {
           <div style={fontSize} className="current-num">{current}</div>
         </div>
         <div className="numpad-ctn">
-          <div className="div">
+          <div className="numpad-col">
             <div className="advance-wrp">
               <NumBtn color='btn-light' onClick={() => clearAll()} text="c" />
               <NumBtn color='btn-light' onClick={() => invertCurrent()} text="+/-" />
